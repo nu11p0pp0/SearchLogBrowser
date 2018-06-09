@@ -5,15 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SearchLogBrowser"
         mc:Ignorable="d"
-        Title="ｇｇｒｋｓ" Height="600 " Width="800">
+        Title="ｇｇｒｋｓ" Height="800" Width="1024" Background="#FFD6D2D2">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="151*"/>
-            <ColumnDefinition Width="641*"/>
-        </Grid.ColumnDefinitions>
-        <WebBrowser x:Name="browser" Grid.ColumnSpan="2" Height="506" VerticalAlignment="Bottom"/>
-        <TextBox x:Name="addressBar" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="550" Grid.ColumnSpan="2" KeyDown="AddressBar_KeyDown"/>
-        <TextBox x:Name="searchWord" HorizontalAlignment="Left" Height="23" Margin="424,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="199" Grid.Column="1"/>
+        <DockPanel x:Name="Dock" Height="23" Margin="10,10,-10,736" MaxHeight="Infinity">
+            <TextBox x:Name="addressBar" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Address Here!!" KeyDown="AddressBar_KeyDown" UseLayoutRounding="True" Width="600" Margin="0" MaxWidth="600"/>
+            <TextBox x:Name="searchWord" HorizontalAlignment="Right" TextWrapping="Wrap" Height="25" Width="199"/>
+            <ComboBox x:Name="searchEngineList" Margin="0" IsEditable="True" Height="25" Width="120">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="#FFE5E5E5" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+                <ComboBoxItem Content="Google" HorizontalAlignment="Left"/>
+                <ComboBoxItem Content="Yahoo!!" HorizontalAlignment="Left"/>
+                <ComboBoxItem Content="Bing" HorizontalAlignment="Left"/>
+            </ComboBox>
 
+        </DockPanel>
+        <WebBrowser x:Name="browser" Margin="0,75,0,0"/>
     </Grid>
 </Window>
