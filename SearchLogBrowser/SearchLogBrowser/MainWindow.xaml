@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SearchLogBrowser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="ｇｇｒｋｓ" Height="600 " Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="151*"/>
+            <ColumnDefinition Width="641*"/>
+        </Grid.ColumnDefinitions>
+        <WebBrowser x:Name="browser" Grid.ColumnSpan="2" Height="506" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="addressBar" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="550" Grid.ColumnSpan="2" KeyDown="AddressBar_KeyDown"/>
+        <TextBox x:Name="searchWord" HorizontalAlignment="Left" Height="23" Margin="424,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="199" Grid.Column="1"/>
+
     </Grid>
 </Window>

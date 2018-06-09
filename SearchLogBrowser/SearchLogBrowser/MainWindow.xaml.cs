@@ -20,9 +20,24 @@ namespace SearchLogBrowser
     /// </summary>
     public partial class MainWindow : Window
     {
+        private String startUrl = "http://www.google.com";
         public MainWindow()
         {
             InitializeComponent();
+            browser.Navigate(new Uri(startUrl));
+            addressBar.Text = startUrl;
+
+        }
+
+        /**
+         * アドレスバー.キー押下イベント.
+         */
+        private void AddressBar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key.Equals(Key.Enter))
+            {
+                browser.Navigate(new Uri(addressBar.Text));
+            }
         }
     }
 }
