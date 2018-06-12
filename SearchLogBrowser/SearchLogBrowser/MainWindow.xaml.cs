@@ -24,6 +24,7 @@ namespace SearchLogBrowser
         public MainWindow()
         {
             InitializeComponent();
+            // 設定ファイルの読み込み.
             // browser.Navigate(new Uri(startUrl));
             browser.Address = startUrl;
             addressBar.Text = new Uri(startUrl).ToString();
