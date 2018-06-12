@@ -24,8 +24,9 @@ namespace SearchLogBrowser
         public MainWindow()
         {
             InitializeComponent();
-            browser.Navigate(new Uri(startUrl));
-            addressBar.Text = startUrl;
+            // browser.Navigate(new Uri(startUrl));
+            browser.Address = startUrl;
+            addressBar.Text = new Uri(startUrl).ToString();
 
         }
 
@@ -36,7 +37,8 @@ namespace SearchLogBrowser
         {
             if (e.Key.Equals(Key.Enter))
             {
-                browser.Navigate(new Uri(addressBar.Text));
+                // browser.Navigate(new Uri(addressBar.Text));
+                browser.Address = new Uri(addressBar.Text).ToString();
             }
         }
     }

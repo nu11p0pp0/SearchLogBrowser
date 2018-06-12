@@ -3,14 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         xmlns:local="clr-namespace:SearchLogBrowser"
         mc:Ignorable="d"
-        Title="ｇｇｒｋｓ" Height="800" Width="1024" Background="#FFD6D2D2">
+        Title="ｇｇｒｋｓ" Height="800" Width="1024" Background="#FFD6D2D2" MinWidth="1024" MinHeight="800" MaxWidth="1024" MaxHeight="800" ScrollViewer.HorizontalScrollBarVisibility="Visible" VerticalAlignment="Top" HorizontalAlignment="Left">
     <Grid>
-        <DockPanel x:Name="Dock" Height="23" Margin="10,10,-10,736" MaxHeight="Infinity">
-            <TextBox x:Name="addressBar" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Address Here!!" KeyDown="AddressBar_KeyDown" UseLayoutRounding="True" Width="600" Margin="0" MaxWidth="600"/>
-            <TextBox x:Name="searchWord" HorizontalAlignment="Right" TextWrapping="Wrap" Height="25" Width="199"/>
-            <ComboBox x:Name="searchEngineList" Margin="0" IsEditable="True" Height="25" Width="120">
+
+        <!--WebBrowser x:Name="browser" Margin="0,75,0,0"/-->
+        <Grid Margin="10,0,10,728" Height="26" VerticalAlignment="Top">
+            <Button x:Name="back" Content="◀" Height="26" VerticalAlignment="Top" Margin="0" Width="26" HorizontalAlignment="Left"/>
+            <Button x:Name="next" Content="▶" Height="26" VerticalAlignment="Top" Margin="31,0,0,0" Width="26" HorizontalAlignment="Left"/>
+            <TextBox x:Name="addressBar" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Address Here!!" KeyDown="AddressBar_KeyDown" UseLayoutRounding="True" Width="500" MaxWidth="500" Height="26" MinHeight="26" MinWidth="500" MaxHeight="26" Margin="66,0,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="searchWord" HorizontalAlignment="Right" TextWrapping="Wrap" Height="25" Width="199" Margin="0,0,172,1" VerticalAlignment="Top"/>
+            <ComboBox x:Name="searchEngineList" Margin="833,0,0,1" IsEditable="True" Height="25" VerticalAlignment="Top">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,0" StartPoint="0,0">
                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -22,7 +27,11 @@
                 <ComboBoxItem Content="Bing" HorizontalAlignment="Left"/>
             </ComboBox>
 
-        </DockPanel>
-        <WebBrowser x:Name="browser" Margin="0,75,0,0"/>
+        </Grid>
+
+        <!--WebBrowser x:Name="browser" Margin="0,75,0,0"/-->
+        <cefSharp:ChromiumWebBrowser x:Name="browser" Grid.Row="0" Margin="0,50,0,0"
+            Address="https://github.com/cefsharp/CefSharp/wiki/Frequently-asked-questions" />
     </Grid>
+
 </Window>
