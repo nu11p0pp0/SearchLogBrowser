@@ -41,5 +41,19 @@ namespace SearchLogBrowser
                 browser.Address = new Uri(addressBar.Text).ToString();
             }
         }
+        /**
+         * 戻るボタン.キー押下イベント. 
+         */
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            if (browser.CanGoBack) browser.GetBrowser().GoBack();
+        }
+        /**
+         * 進むボタン.キー押下イベント. 
+         */
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            if (browser.CanGoForward) browser.GetBrowser().GoForward();
+        }
     }
 }
