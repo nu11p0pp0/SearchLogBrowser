@@ -26,8 +26,11 @@ namespace SearchLogBrowser
         public MainWindow()
         {
             InitializeComponent();
+            // ブラウザの初期設定（ロケール）.
+            browser.BrowserSettings.AcceptLanguageList = "ja-JP";
+            browser.FrameLoadEnd += Browser_LoadEnd;
             // 設定ファイルの読み込み.
-            List<ComboBoxItem> list
+            List <ComboBoxItem> list
                 = JsonConvert.DeserializeObject<List<ComboBoxItem>>(ConfigurationManager.AppSettings["searchEngineList"]);
             searchEngineList.Items.Clear();
             foreach (ComboBoxItem item in list)
@@ -72,7 +75,11 @@ namespace SearchLogBrowser
          */
         private void SearchEngineList_Change(object sender, SelectionChangedEventArgs e)
         {
-            //browser.Address = new Uri(((ComboBoxItem) searchEngineList.SelectedItem).Value).ToString();
+            if (!String.IsNullOrEmpty(searchWord.Text.Trim()))
+            {
+                var searchUrl = new Uri(((ComboBoxItem)searchEngineList.SelectedItem).Value + searchWord.Text);
+                browser.Address = searchUrl.ToString();
+            }
         }
 
         /**
@@ -80,13 +87,21 @@ namespace SearchLogBrowser
          */
         private void SearchWord_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key.Equals(Key.Enter))
+            if (!String.IsNullOrEmpty(searchWord.Text.Trim()) && e.Key.Equals(Key.Enter))
             {
-                // browser.Navigate(new Uri(addressBar.Text));
                 var searchUrl = new Uri(((ComboBoxItem)searchEngineList.SelectedItem).Value + searchWord.Text);
                 browser.Address = searchUrl.ToString();
-                addressBar.Text = searchUrl.ToString();
             }
+        }
+
+        /**
+         * Webブラウザ.ロード完了後イベント.
+         */
+        private void Browser_LoadEnd(object sender, CefSharp.FrameLoadEndEventArgs e)
+        {
+            //addressBar.Text = e.Url;
+            var url = e.Url;
+
         }
     }
 }
