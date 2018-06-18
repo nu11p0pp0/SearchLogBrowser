@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using SearchLogBrowser.Domain;
 
 namespace SearchLogBrowser
 {
@@ -23,6 +24,7 @@ namespace SearchLogBrowser
     public partial class MainWindow : Window
     {
         private String startUrl = "http://www.google.com";
+        private AppSetting appSettings;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,10 +32,9 @@ namespace SearchLogBrowser
             browser.BrowserSettings.AcceptLanguageList = "ja-JP";
             browser.FrameLoadEnd += Browser_LoadEnd;
             // 設定ファイルの読み込み.
-            List <SearchEngineItem> list
-                = JsonConvert.DeserializeObject<List<SearchEngineItem>>(ConfigurationManager.AppSettings["searchEngineList"]);
+            appSettings = new AppSetting();
             searchEngineList.Items.Clear();
-            foreach (SearchEngineItem item in list)
+            foreach (SearchEngineItem item in appSettings.SearchEngineItems)
             {
                 searchEngineList.Items.Add(item);
             }
@@ -91,9 +92,12 @@ namespace SearchLogBrowser
             if (!String.IsNullOrEmpty(searchWord.Text.Trim()) && e.Key.Equals(Key.Enter))
             {
                 var selected = ((SearchEngineItem) searchEngineList.SelectedItem);
+                // URL作成 ～ ブラウザへセット.
                 var searchUrl = new Uri(selected.Value + searchWord.Text);
                 browser.Address = searchUrl.ToString();
                 MainWindow1.Title = selected.Title;
+                // 検索ログ書き込み.
+                
             }
         }
 
