@@ -19,4 +19,9 @@ namespace SearchLogBrowser
             return Key;
         }
     }
+
+    class SearchEngineItem : ComboBoxItem
+    {
+        public String Title { get; set; }
+    }
 }

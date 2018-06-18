@@ -30,15 +30,14 @@ namespace SearchLogBrowser
             browser.BrowserSettings.AcceptLanguageList = "ja-JP";
             browser.FrameLoadEnd += Browser_LoadEnd;
             // 設定ファイルの読み込み.
-            List <ComboBoxItem> list
-                = JsonConvert.DeserializeObject<List<ComboBoxItem>>(ConfigurationManager.AppSettings["searchEngineList"]);
+            List <SearchEngineItem> list
+                = JsonConvert.DeserializeObject<List<SearchEngineItem>>(ConfigurationManager.AppSettings["searchEngineList"]);
             searchEngineList.Items.Clear();
-            foreach (ComboBoxItem item in list)
+            foreach (SearchEngineItem item in list)
             {
                 searchEngineList.Items.Add(item);
             }
             searchEngineList.SelectedIndex = 0;
-            // browser.Navigate(new Uri(startUrl));
             browser.Address = startUrl;
             addressBar.Text = new Uri(startUrl).ToString();
 
@@ -51,7 +50,6 @@ namespace SearchLogBrowser
         {
             if (e.Key.Equals(Key.Enter))
             {
-                // browser.Navigate(new Uri(addressBar.Text));
                 browser.Address = new Uri(addressBar.Text).ToString();
             }
         }
@@ -62,6 +60,7 @@ namespace SearchLogBrowser
         {
             if (browser.CanGoBack) browser.GetBrowser().GoBack();
         }
+
         /**
          * 進むボタン.キー押下イベント. 
          */
@@ -77,8 +76,10 @@ namespace SearchLogBrowser
         {
             if (!String.IsNullOrEmpty(searchWord.Text.Trim()))
             {
-                var searchUrl = new Uri(((ComboBoxItem)searchEngineList.SelectedItem).Value + searchWord.Text);
+                var selected = ((SearchEngineItem) searchEngineList.SelectedItem);
+                var searchUrl = new Uri(selected.Value + searchWord.Text);
                 browser.Address = searchUrl.ToString();
+                MainWindow1.Title = selected.Title;
             }
         }
 
@@ -89,8 +90,10 @@ namespace SearchLogBrowser
         {
             if (!String.IsNullOrEmpty(searchWord.Text.Trim()) && e.Key.Equals(Key.Enter))
             {
-                var searchUrl = new Uri(((ComboBoxItem)searchEngineList.SelectedItem).Value + searchWord.Text);
+                var selected = ((SearchEngineItem) searchEngineList.SelectedItem);
+                var searchUrl = new Uri(selected.Value + searchWord.Text);
                 browser.Address = searchUrl.ToString();
+                MainWindow1.Title = selected.Title;
             }
         }
 
@@ -99,9 +102,8 @@ namespace SearchLogBrowser
          */
         private void Browser_LoadEnd(object sender, CefSharp.FrameLoadEndEventArgs e)
         {
-            //addressBar.Text = e.Url;
-            var url = e.Url;
-
+            // アドレスバーへの書き込み（ロードされたページのURL）.
+            this.Dispatcher.Invoke(new Action(() => { addressBar.Text = e.Url; }));
         }
     }
 }
