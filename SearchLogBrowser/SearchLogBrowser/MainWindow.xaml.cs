@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 using SearchLogBrowser.Domain;
+using SearchLogBrowser.Database;
 
 namespace SearchLogBrowser
 {
@@ -97,7 +98,16 @@ namespace SearchLogBrowser
                 browser.Address = searchUrl.ToString();
                 MainWindow1.Title = selected.Title;
                 // 検索ログ書き込み.
-                
+                using (var context = new SLBDbContext())
+                {
+                    var entity = new LSearchWord { Id = appSettings.Id
+                        , SearchTimestamp = DateTime.Now
+                        , SearchWord = searchWord.Text};
+
+                    context.LSearchWords.Add(entity);
+
+                    context.SaveChanges();
+                }
             }
         }
 
