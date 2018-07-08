@@ -100,13 +100,14 @@ namespace SearchLogBrowser
                 // 検索ログ書き込み.
                 using (var context = new SLBDbContext())
                 {
-                    var entity = new LSearchWord { Id = appSettings.Id
+                    context.Searchwords.Add(new Searchword {
+                        Id = appSettings.Id
                         , SearchTimestamp = DateTime.Now
-                        , SearchWord = searchWord.Text};
-
-                    context.LSearchWords.Add(entity);
-
+                        , SearchWord = searchWord.Text
+                        , Url = searchUrl.ToString()
+                });
                     context.SaveChanges();
+
                 }
             }
         }
