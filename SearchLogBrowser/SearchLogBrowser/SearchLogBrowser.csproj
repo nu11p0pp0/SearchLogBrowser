@@ -233,6 +233,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Database\Searchlog.cs" />
     <Compile Include="Database\Searchword.cs" />
     <Compile Include="Database\SLBDbContext.cs" />
     <Compile Include="Domain\AppSetting.cs" />

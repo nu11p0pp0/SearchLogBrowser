@@ -19,11 +19,15 @@
         // 詳細については、http://go.microsoft.com/fwlink/?LinkId=390109 を参照してください。
 
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
-        public virtual DbSet<Searchword> Searchwords { get; set; }
+        //public virtual DbSet<Searchword> Searchwords { get; set; }
+        public virtual DbSet<Searchlog> Searchlogs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("public");
+
+            modelBuilder.Entity<Searchlog>().HasKey(c => new { c.Logno });
+
             base.OnModelCreating(modelBuilder);
         }
 
